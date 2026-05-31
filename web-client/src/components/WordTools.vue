@@ -103,7 +103,7 @@
           </div>
 
           <div v-else class="result-summary">
-            <div class="result-summary-bar">
+            <div v-if="hasSearched" class="result-summary-bar">
               <div>
                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-stone-500">Matches</p>
                 <p class="text-2xl font-black text-stone-900">{{ listResult.count }}</p>
@@ -111,12 +111,12 @@
               <p class="result-hint">{{ currentTool.resultHint }}</p>
             </div>
 
-            <div v-if="listResult.words.length > 0" class="result-word-grid">
+            <div v-if="hasSearched && listResult.words.length > 0" class="result-word-grid">
               <span v-for="word in visibleWords" :key="word" class="result-chip">{{ word }}</span>
             </div>
             <p v-else class="result-empty">{{ currentTool.empty }}</p>
 
-            <p v-if="listResult.words.length > visibleLimit" class="result-tail">
+            <p v-if="hasSearched && listResult.words.length > visibleLimit" class="result-tail">
               Showing {{ visibleLimit }} of {{ listResult.words.length }} words.
             </p>
           </div>
@@ -195,6 +195,7 @@ const visibleLimit = 36;
 const activeTool = ref('exists');
 const loading = ref(false);
 const error = ref('');
+const hasSearched = ref(false);
 
 const existsForm = ref({ word: '' });
 const prefixForm = ref({ prefix: '' });
@@ -298,8 +299,10 @@ const submitActiveTool = async () => {
     } else {
       await submitSearch();
     }
+    hasSearched.value = true;
   } catch (err) {
     error.value = err.message || 'Something went wrong while using this tool.';
+    hasSearched.value = false;
   } finally {
     loading.value = false;
   }
@@ -307,6 +310,7 @@ const submitActiveTool = async () => {
 
 const resetActiveTool = () => {
   error.value = '';
+  hasSearched.value = false;
   if (activeTool.value === 'exists') {
     existsForm.value.word = '';
   } else if (activeTool.value === 'prefix') {
@@ -332,6 +336,15 @@ const playClickSound = () => {
 
 const selectTool = (toolId) => {
   activeTool.value = toolId;
+  hasSearched.value = false;
+  // Reset all input forms to default empty states
+  existsForm.value.word = '';
+  prefixForm.value.prefix = '';
+  suffixForm.value.suffix = '';
+  subwordsForm.value = { word: '', minLength: 3 };
+  searchForm.value = { start: '', end: '', length: null };
+  // Reset results and errors
+  resetResults();
   playClickSound();
 };
 </script>

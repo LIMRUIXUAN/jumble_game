@@ -14,9 +14,22 @@
             LIM RUI XUAN work
           </p>
         </div>
-        <div class="rounded-[0.65rem] bg-stone-100 border border-stone-200 px-4 py-3 min-w-[140px] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
-          <span class="text-[11px] text-stone-500 uppercase tracking-[0.18em] block font-bold">High score</span>
-          <span class="text-2xl font-black text-stone-900">{{ highScore }} pts</span>
+        <div class="flex items-center gap-3 self-start md:self-auto">
+          <div class="rounded-[0.65rem] bg-stone-100 border border-stone-200 px-4 py-3 min-w-[130px] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <span class="text-[11px] text-stone-500 uppercase tracking-[0.18em] block font-bold">High score</span>
+            <span class="text-2xl font-black text-stone-900">{{ highScore }} pts</span>
+          </div>
+          <button 
+            v-if="game || showGameOver"
+            type="button" 
+            class="flex items-center gap-1.5 px-4 py-3 rounded-[0.65rem] border border-amber-200 bg-amber-50 hover:bg-amber-100 text-sm font-bold text-amber-800 transition-all duration-200 shadow-sm"
+            @click="playClickSound(); resetToMenu()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            Home
+          </button>
         </div>
       </div>
 
@@ -224,12 +237,22 @@
           </div>
         </div>
 
-        <button 
-          class="btn w-full max-w-xs py-3 rounded-2xl font-bold bg-stone-900 text-white border-0 hover:bg-stone-800 shadow-lg transition-all duration-200"
-          @click="resetToMenu"
-        >
-          Play again
-        </button>
+        <div class="flex flex-col gap-2.5 items-center max-w-xs mx-auto">
+          <button 
+            type="button" 
+            class="btn w-full py-3 rounded-2xl font-bold bg-stone-900 text-white border-0 hover:bg-stone-800 shadow-lg transition-all duration-200"
+            @click="playClickSound(); startNewGame()"
+          >
+            Play again
+          </button>
+          <button 
+            type="button" 
+            class="btn w-full py-3 rounded-2xl font-bold bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200 transition-all duration-200"
+            @click="playClickSound(); resetToMenu()"
+          >
+            Home
+          </button>
+        </div>
       </div>
     </div>
 
