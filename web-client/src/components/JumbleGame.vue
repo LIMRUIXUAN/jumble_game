@@ -22,7 +22,7 @@
           <button 
             v-if="game || showGameOver"
             type="button" 
-            class="flex items-center gap-1.5 px-4 py-3 rounded-[0.65rem] border border-amber-200 bg-amber-50 hover:bg-amber-100 text-sm font-bold text-amber-800 transition-all duration-200 shadow-sm"
+            class="flex items-center gap-1.5 px-4 py-3 rounded-[0.65rem] bg-[#3f2c1c] hover:bg-[#2f2014] text-sm font-bold text-white transition-all duration-200 shadow-sm border border-[#3f2c1c]"
             @click="playClickSound(); resetToMenu()"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -247,7 +247,7 @@
           </button>
           <button 
             type="button" 
-            class="btn w-full py-3 rounded-2xl font-bold bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200 transition-all duration-200"
+            class="btn w-full py-3 rounded-2xl font-bold bg-[#3f2c1c] text-white hover:bg-[#2f2014] transition-all duration-200 border-0"
             @click="playClickSound(); resetToMenu()"
           >
             Home
@@ -279,6 +279,8 @@ import wrongAnswerSound from './sound/wrong_answer.mp3';
 
 // Define the API Base URL dynamically
 const API_BASE = import.meta.env.VITE_API_URL || '';
+
+const emit = defineEmits(['game-active']);
 
 // State variables
 const game = ref(null);
@@ -454,6 +456,7 @@ const startNewGame = async () => {
       remainingWords: data.remaining_words,
       guessedWords: data.guessed_words || []
     };
+    emit('game-active', true);
 
     if (difficulty.value === 'hard') {
       startTimer();
@@ -618,6 +621,7 @@ const resetToMenu = () => {
   score.value = 0;
   error.value = null;
   stopTimer();
+  emit('game-active', false);
 };
 
 onUnmounted(() => {

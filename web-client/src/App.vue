@@ -1,6 +1,6 @@
 <template>
   <main class="app-shell">
-    <section class="hero-section">
+    <section v-if="!isGameActive" class="hero-section">
       <nav class="top-nav" aria-label="App sections">
         <button
           type="button"
@@ -28,7 +28,7 @@
     </section>
 
     <section id="play" class="game-section">
-      <JumbleGame v-if="activeView === 'game'" />
+      <JumbleGame v-if="activeView === 'game'" @game-active="handleGameActive" />
       <WordTools v-else />
     </section>
   </main>
@@ -41,6 +41,11 @@ import WordTools from './components/WordTools.vue';
 
 const activeView = ref('game');
 const navDirection = ref('right');
+const isGameActive = ref(false);
+
+const handleGameActive = (active) => {
+  isGameActive.value = active;
+};
 
 const setActiveView = (view) => {
   if (view === activeView.value) {
