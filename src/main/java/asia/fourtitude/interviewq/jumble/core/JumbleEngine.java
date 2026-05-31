@@ -8,8 +8,6 @@ public class JumbleEngine {
     private final Set<String> wordSet = new HashSet<>();
     private final List<String> allWords = new ArrayList<>();
     private final Map<Integer, List<String>> wordsByLength = new HashMap<>();
-    private final File myFile = new File("src/main/resources/words.txt");
-
     // when we initial the object of class, it will generate dataset for above
     // HastSet, ArrayList, HashMap by calling loadWords() func lah
     public JumbleEngine() {
@@ -17,9 +15,16 @@ public class JumbleEngine {
     }
 
     private void loadWords() {
-        try (Scanner sc = new Scanner(myFile)) {
-            while (sc.hasNextLine())
-                addWord(sc.nextLine());
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("words.txt")) {
+            if (is == null) {
+                System.err.println("Error: Could not find words.txt on classpath");
+                return;
+            }
+            try (Scanner sc = new Scanner(is)) {
+                while (sc.hasNextLine()) {
+                    addWord(sc.nextLine());
+                }
+            }
         } catch (IOException e) {
             System.err.println("Error reading words.txt: " + e.getMessage());
         }
