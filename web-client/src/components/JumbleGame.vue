@@ -251,6 +251,9 @@
 <script setup>
 import { ref, computed, nextTick, onUnmounted } from 'vue';
 import buttonClickedSound from './sound/button_clicked.mp3';
+
+// Define the API Base URL dynamically
+const API_BASE = import.meta.env.VITE_API_URL || '';
 import correctAnswerSound from './sound/correct_answer.mp3';
 import wrongAnswerSound from './sound/wrong_answer.mp3';
 
@@ -414,7 +417,7 @@ const startNewGame = async () => {
   }
 
   try {
-    const res = await fetch('/api/game/new');
+    const res = await fetch(`${API_BASE}/api/game/new`);
     if (!res.ok) {
       throw new Error(`Server returned HTTP ${res.status}`);
     }
@@ -495,7 +498,7 @@ const submitGuess = async () => {
 
   loading.value = true;
   try {
-    const res = await fetch('/api/game/guess', {
+    const res = await fetch(`${API_BASE}/api/game/guess`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

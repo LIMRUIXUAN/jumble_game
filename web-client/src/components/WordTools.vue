@@ -130,6 +130,9 @@
 import { computed, ref } from 'vue';
 import buttonClickedSound from './sound/button_clicked.mp3';
 
+// Define the API Base URL dynamically
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const toolCards = [
   {
     id: 'exists',
@@ -214,7 +217,7 @@ const resetResults = () => {
 const normalizeWord = (value) => value.trim().toLowerCase();
 
 const fetchJson = async (url) => {
-  const response = await fetch(url);
+  const response = await fetch(`${API_BASE}${url}`);
   if (!response.ok) {
     throw new Error(`Server returned HTTP ${response.status}`);
   }
