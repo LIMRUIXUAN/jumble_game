@@ -19,6 +19,8 @@ import asia.fourtitude.interviewq.jumble.TestConfig;
 import asia.fourtitude.interviewq.jumble.core.JumbleEngine;
 import asia.fourtitude.interviewq.jumble.model.GameGuessInput;
 import asia.fourtitude.interviewq.jumble.model.GameGuessOutput;
+import asia.fourtitude.interviewq.jumble.model.GameSessionRepository;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 @WebMvcTest(GameApiController.class)
 @Import(TestConfig.class)
@@ -31,6 +33,9 @@ class GameApiControllerTest {
 
         @Autowired
         JumbleEngine jumbleEngine;
+
+        @MockBean
+        private GameSessionRepository gameSessionRepository;
 
         /*
          * NOTE: Refer to "RootControllerTest.java", "GameWebControllerTest.java"
