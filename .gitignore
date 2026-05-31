@@ -51,3 +51,9 @@ build/
 .env
 .env.local
 .env.*.local
+
+# Node dependencies and build output
+node_modules/
+dist/
+web-client/node_modules/
+web-client/dist/
