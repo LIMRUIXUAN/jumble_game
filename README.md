@@ -58,27 +58,31 @@ The application is structured into four core tasks: **Task A**, **Task B**, **Ta
 To run the Spring Boot application, you must provide the database connection details. You can do this by setting environment variables in your terminal before running the application, or by passing them as comma-separated Maven run arguments:
 
 #### Option A: Set environment variables in your terminal (Recommended)
+
+> [!IMPORTANT]
+> The credentials below are **placeholders**. The real database credentials have been provided separately (e.g. via email or the submission form). Replace the `<...>` values with the actual credentials before running.
+
 **PowerShell (Windows):**
 ```powershell
-$env:DB_URL="jdbc:postgresql://ep-restless-sun-aourh246.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-$env:DB_USERNAME="neondb_owner"
-$env:DB_PASSWORD="npg_1ATQxG8pkOwf"
+$env:DB_URL="<YOUR_DB_URL>"
+$env:DB_USERNAME="<YOUR_DB_USERNAME>"
+$env:DB_PASSWORD="<YOUR_DB_PASSWORD>"
 .\mvnw.cmd spring-boot:run
 ```
 
 **CMD (Windows Command Prompt):**
 ```cmd
-set DB_URL=jdbc:postgresql://ep-restless-sun-aourh246.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
-set DB_USERNAME=neondb_owner
-set DB_PASSWORD=npg_1ATQxG8pkOwf
+set DB_URL=<YOUR_DB_URL>
+set DB_USERNAME=<YOUR_DB_USERNAME>
+set DB_PASSWORD=<YOUR_DB_PASSWORD>
 mvnw.cmd spring-boot:run
 ```
 
 **Bash (Linux / macOS):**
 ```bash
-export DB_URL="jdbc:postgresql://ep-restless-sun-aourh246.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-export DB_USERNAME="neondb_owner"
-export DB_PASSWORD="npg_1ATQxG8pkOwf"
+export DB_URL="<YOUR_DB_URL>"
+export DB_USERNAME="<YOUR_DB_USERNAME>"
+export DB_PASSWORD="<YOUR_DB_PASSWORD>"
 ./mvnw spring-boot:run
 ```
 
@@ -86,7 +90,7 @@ export DB_PASSWORD="npg_1ATQxG8pkOwf"
 If you want to run it in a single command, you can pass comma-separated spring properties:
 **Windows (PowerShell):**
 ```powershell
-.\mvnw.cmd spring-boot:run "-Dspring-boot.run.arguments=--spring.datasource.url=jdbc:postgresql://ep-restless-sun-aourh246.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require,--spring.datasource.username=neondb_owner,--spring.datasource.password=npg_1ATQxG8pkOwf"
+.\mvnw.cmd spring-boot:run "-Dspring-boot.run.arguments=--spring.datasource.url=<YOUR_DB_URL>,--spring.datasource.username=<YOUR_DB_USERNAME>,--spring.datasource.password=<YOUR_DB_PASSWORD>"
 ```
 *(Note: Arguments must be separated by **commas**, not spaces, for the Maven plugin to parse them correctly)*
 
