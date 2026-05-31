@@ -8,11 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class JumbleEngineTest {
 
-    @Autowired
-    JumbleEngine engine;
+    JumbleEngine engine = new JumbleEngine();
 
     @Test
     void accessResource() {

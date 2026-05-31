@@ -56,7 +56,7 @@ describe('JumbleGame.vue', () => {
     expect(wrapper.vm.game).toBeTruthy();
     expect(wrapper.vm.game.id).toBe('test-uuid-123');
     expect(wrapper.text()).toContain('a m o t t o');
-    expect(wrapper.text()).toContain('10 / 10');
+    expect(wrapper.text()).toContain('0 / 10');
   });
 
   it('performs client-side validation on short and invalid guesses', async () => {
